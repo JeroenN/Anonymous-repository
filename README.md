@@ -32,8 +32,18 @@ pip install -r requirements.txt
 ```
 
 ## Running inference
+In order for the model weights to be uploaded to the repository the files have to be smaller than 25mb, 
+which a fully trained model isn't. In order to be able to add them to the repository the encoder 
+weights were removed. The problem is that during inference the encoder weights do get loaded. 
 
-There are two ready-made configs, one per model:
+So to use the weights for running inference first the following **must** be run:
+
+```bash
+source /path/to/venv/bin/activate
+python3 model-weights/restore_weights.py
+```
+
+This script simply adds zeros to the encoder weights. After this is done, the following can be run:
 
 ```bash
 source /path/to/venv/bin/activate
