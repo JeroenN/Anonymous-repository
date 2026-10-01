@@ -1,0 +1,9 @@
+# Tested on python 3.10 with CUDA 12 drivers.
+
+jax[cuda12]==0.6.2
+numpy==2.2.6
+PyYAML==6.0.3
+
+# train.py only. Inference never imports optax, so it can be dropped from an
+# inference-only install.
+optax==0.2.6

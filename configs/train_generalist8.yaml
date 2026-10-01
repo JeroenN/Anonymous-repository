@@ -1,0 +1,72 @@
+BENCHMARK_DIRECTORY: "benchmarks"
+OUTPUT_DIRECTORY: "output"
+
+# Uniform sampling from circuit names
+CIRCUIT_NAMES: ["ami33", "ami49", "n10", "n30", "n50", "n100", "n200", "n300"]
+
+TEACHER_DATASET_PATHS:
+  ami33: [""]
+  ami49: [""]
+  n10: [""]
+  n30: [""]
+  n50: [""]
+  n100: [""]
+  n200: [""]
+  n300: [""]
+
+# Path to checkpoint or null
+INITIALIZE_FROM_CHECKPOINT: null
+
+# model
+hidden_dim_encoder: 256
+num_heads_encoder: 8
+num_layers_encoder: 4
+mlp_dim_encoder: 1024
+hidden_dim_decoder: 256
+num_heads_decoder: 8
+num_layers_decoder: 6
+mlp_dim_decoder: 1024
+ls_dim: 64
+# Must be atleast the max number of blocks seen
+max_num_movable_blocks: 300
+block_identity_hidden_dim: 128
+footprint_option_embedding_dim: 64
+num_deconvolution_channels: 4
+num_local_convolution_channels: 8
+num_spatial_map_channels: 8
+max_footprint_retries: 5
+
+# Loss
+free_bits: 0.5
+kl_weight: 1.0
+option_loss_weight: 1.0
+
+# Optimizer
+num_training_steps: 5000
+batch_size: 32
+learning_rate: 0.0003
+learning_rate_warmup_steps: 500
+weight_decay: 0.01
+gradient_clip_norm: 1.0
+
+# Chunking of teacher forcing, might be needed to set lower when less VRAM is available
+teacher_forcing_step_chunk_size: 100
+
+#float32 for training, float16 for inference
+cell_head_compute_dtype: "float32"
+
+# Evaluation
+validation_fraction: 0.02
+validation_split_seed: 1234
+num_evaluation_layouts: 16
+evaluate_every_num_steps: 200
+log_every_num_steps: 50
+initialization_seed: 0
+training_seed: 0
+
+# Objective
+#   J = 1 - HPWL/hpwl_ref + 0.5*alignment - 0.5*overlap
+objective_alignment_weight: 0.5
+objective_overlap_weight: 0.5
+
+JAX_COMPILATION_CACHE_DIR: "output/compilation-cache"

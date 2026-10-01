@@ -1,0 +1,49 @@
+BENCHMARK_DIRECTORY: "benchmarks"
+CIRCUIT_NAMES: ["ami33", "ami49", "n10", "n30", "n50", "n100", "n200", "n300"]
+
+# The weights to search with.
+CHECKPOINT_PATH: "model-weights/8-circuit-generalist.npz"
+OUTPUT_DIRECTORY: "output"
+
+# Model
+hidden_dim_encoder: 256
+num_heads_encoder: 8
+num_layers_encoder: 4
+mlp_dim_encoder: 1024
+hidden_dim_decoder: 256
+num_heads_decoder: 8
+num_layers_decoder: 6
+mlp_dim_decoder: 1024
+ls_dim: 64
+# Must be atleast the max number of blocks seen
+max_num_movable_blocks: 300
+block_identity_hidden_dim: 128
+footprint_option_embedding_dim: 64
+num_deconvolution_channels: 4
+num_local_convolution_channels: 8
+num_spatial_map_channels: 8
+max_footprint_retries: 5
+cell_head_compute_dtype: "float16"
+
+# Objective
+#   J = 1 - HPWL/hpwl_ref + 0.5*alignment - 0.5*overlap
+objective_alignment_weight: 0.5
+objective_overlap_weight: 0.5
+
+# Latent search
+search_population: 256
+search_rounds: 200
+search_mutation_initial: 0.6
+search_mutation_final: 0.1
+search_restart_fraction: 0.10
+search_elite_fraction: 0.5
+search_interpolation_low: 0.05
+search_interpolation_high: 0.95
+# If search_seeds is empty, search seed is used instead
+search_seeds: [] #[0, 1, 2, 3, 4]
+search_seed: 0
+search_log_every: 50
+DEDUPLICATE_POPULATION_BY_LAYOUT: true
+PROTECT_RESTARTS_FROM_TRUNCATION: true
+
+JAX_COMPILATION_CACHE_DIR: "output/compilation-cache"
