@@ -33,8 +33,9 @@ pip install -r requirements.txt
 
 ## Running inference
 In order for the model weights to be uploaded to the repository the files have to be smaller than 25mb, 
-which a fully trained model isn't. In order to be able to add them to the repository the encoder 
-weights were removed. The problem is that during inference the encoder weights do get loaded. 
+which a fully trained model isn't. We were still able to get the file size under 25mb by removing the
+encoder weights, these weights are not used during inference. However, these weights do get loaded during
+inference.
 
 So to use the weights for running inference first the following **must** be run:
 
@@ -74,7 +75,7 @@ ones after it; it is safe to delete.
 
 ## Config fields worth knowing
 
-The config is the only input, the following fiels are important:
+The config is the only input, the following fields are important:
 
 | field | effect |
 |---|---|
